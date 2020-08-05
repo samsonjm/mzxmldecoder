@@ -3,3 +3,5 @@
 *.mgf
 *.txt
 decoder
+*.raw
+*.swp
