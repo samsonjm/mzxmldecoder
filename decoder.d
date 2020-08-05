@@ -1,5 +1,7 @@
-/*
- * Takes a base64 binary and converts it to readable text.
+/* Takes a base64 binary and converts it to readable text.
+ * 
+ * Author: Jonathan Samson
+ * Date: 04-08-2020
  *
  * called with:
  *	cat filename.txt | base64 -d | ./decoder
@@ -28,7 +30,6 @@ void main()
 			writeln(output);
 			output = "";
 		}
-		//writeln(bigEndianToNative!float(swappedF));
 		++i;
 	}
 }
