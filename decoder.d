@@ -8,7 +8,10 @@ import std.bitmanip;
 import std.conv;
 import std.base64;
 
-real[real] decode_mzxml_string(string encoded, string compression="", int precision=32)
+real[real] decode_mzxml_string(
+		string encoded, 
+		string compression="", 
+		int precision=32)
 {
 	ubyte[] decoded = Base64.decode(encoded);
 	real mz;
@@ -66,23 +69,34 @@ unittest
 		243.171:	107273,
 		244.174:	8717.19
 	];
-	string line = "Qk3fDkS2lldCl6euRND28UKXvA9EyKoPQsg6lES2z/hCyxPbRLpQkELXhZBE4gXdQuzjCUTKe4VDAhZoRxKMVUMS9gVE0dn6QysnFUTcG4NDRy59Rwo27ENzK95H0YRqQ3Qsd0YINMA=";
-	real[real] function_test = decode_mzxml_string(line); // no compression, 32 precision
+	string line = "Qk3fDkS2lldCl6euRND28UKXvA9EyKoPQsg6lES2z/hCyxPbRLp" ~
+		"QkELXhZBE4gXdQuzjCUTKe4VDAhZoRxKMVUMS9gVE0dn6QysnFUTcG4ND" ~
+		"Ry59Rwo27ENzK95H0YRqQ3Qsd0YINMA=";
+	real[real] function_test = decode_mzxml_string(line);
 	assert(approxEqual(function_test.keys.sort, answer.keys.sort));
 	assert(approxEqual(function_test.values.sort, answer.values.sort));
 
-	line = "eJwBaACX/0JN3w5EtpZXQpenrkTQ9vFCl7wPRMiqD0LIOpREts/4QssT20S6UJBC14WQROIF3ULs4wlEynuFQwIWaEcSjFVDEvYFRNHZ+kMrJxVE3BuDQ0cufUcKNuxDcyveR9GEakN0LHdGCDTAJ+wubA==";
-	function_test = decode_mzxml_string(line, "zlib"); // zlib compression, 32 precision
+	line = "eJwBaACX/0JN3w5EtpZXQpenrkTQ9vFCl7wPRMiqD0LIOpREts/4QssT20" ~
+		"S6UJBC14WQROIF3ULs4wlEynuFQwIWaEcSjFVDEvYFRNHZ+kMrJxVE3Bu" ~
+		"DQ0cufUcKNuxDcyveR9GEakN0LHdGCDTAJ+wubA==";
+	function_test = decode_mzxml_string(line, "zlib");
 	assert(approxEqual(function_test.keys.sort, answer.keys.sort));
 	assert(approxEqual(function_test.values.sort, answer.values.sort));
 
-	line = "QEm74cAAAABAltLK4AAAAEBS9PXAAAAAQJoe3iAAAABAUveB4AAAAECZFUHgAAAAQFkHUoAAAABAltn/AAAAAEBZYntgAAAAQJdKEgAAAABAWvCyAAAAAECcQLugAAAAQF2cYSAAAABAmU9woAAAAEBgQs0AAAAAQOJRiqAAAABAYl7AoAAAAECaOz9AAAAAQGVk4qAAAABAm4NwYAAAAEBo5c+gAAAAQOFG3YAAAABAbmV7wAAAAED6MI1AAAAAQG6FjuAAAABAwQaYAAAAAA==";
-	function_test = decode_mzxml_string(line, "", 64); // no compression, 64 precision
+	line = "QEm74cAAAABAltLK4AAAAEBS9PXAAAAAQJoe3iAAAABAUveB4AAAAECZFU" ~
+		"HgAAAAQFkHUoAAAABAltn/AAAAAEBZYntgAAAAQJdKEgAAAABAWvCyAAA" ~
+		"AAECcQLugAAAAQF2cYSAAAABAmU9woAAAAEBgQs0AAAAAQOJRiqAAAABA" ~
+		"Yl7AoAAAAECaOz9AAAAAQGVk4qAAAABAm4NwYAAAAEBo5c+gAAAAQOFG3" ~
+		"YAAAABAbmV7wAAAAED6MI1AAAAAQG6FjuAAAABAwQaYAAAAAA==";
+	function_test = decode_mzxml_string(line, "", 64);
 	assert(approxEqual(function_test.keys.sort, answer.keys.sort));
 	assert(approxEqual(function_test.values.sort, answer.values.sort));
 
-	line = "eJxz8Nz98AADA4PDtEunHoDooC9fwfxZcvcUwPzvjWDxmaKOYDqSPagBrP7mfwYwP6k6AURP9xIC86M+bALTcxx2LwDRsXMSwebM9C8A8xOczoLlHwV2gflJcQfA9CxrewcQnZryCMyf3VwANjfj6Xkw/6HbXbC9eanVYPf9MugFq89r7QO76yDbDJC5AD9eO64=";
-	function_test = decode_mzxml_string(line, "zlib", 64); // zlib compression, 64 precision
+	line = "eJxz8Nz98AADA4PDtEunHoDooC9fwfxZcvcUwPzvjWDxmaKOYDqSPagBrP" ~
+		"7mfwYwP6k6AURP9xIC86M+bALTcxx2LwDRsXMSwebM9C8A8xOczoLlHwV" ~
+		"2gflJcQfA9CxrewcQnZryCMyf3VwANjfj6Xkw/6HbXbC9eanVYPf9MugF" ~
+		"q89r7QO76yDbDJC5AD9eO64=";
+	function_test = decode_mzxml_string(line, "zlib", 64);
 	assert(approxEqual(function_test.keys.sort, answer.keys.sort));
 	assert(approxEqual(function_test.values.sort, answer.values.sort));
 }
